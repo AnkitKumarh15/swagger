@@ -14,6 +14,4 @@ const routes = ['./routes/userRoutes.js']
 
 swaggerAutogen(outputFile, routes, doc);
 
-
-
 // npm run generateDoc, for generating docs

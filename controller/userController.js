@@ -1,11 +1,9 @@
-const express = require('express')
-const dbConnect = require('../config/dbconfig')
 const UModel = require('../models/userModel')
 
 const getData = async(req,res)=>{
     try{
         const data = await UModel.find();
-        console.log(data);
+        // console.log(data);
         res.status(200).send("Learning swagger");
     }
     catch(err){
@@ -13,22 +11,23 @@ const getData = async(req,res)=>{
     }
 };
 
+
 const postData = async(req,res)=>{
-    await dbConnect();
+    
     const {name, company, price} = req.body;
     try{
-        
         const result = await UModel.create({name, company, price});
-        console.log(result);
-        res.status(200).send("Data Inserted");
+        // console.log(result);
+        res.status(200).send("Data Inserted Successfully");
     }
     catch(err){
         res.status(500).send(err.message)
     }
 };
 
+// This is also correct, working for postman but not working for swagger., Also its not a good practice
+
 // const postData = async(req,res)=>{
-//     await dbConnect();
 //     try{
 //         const data = req.body;
 //         const result = await UModel.create(data)
