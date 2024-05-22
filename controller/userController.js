@@ -1,9 +1,9 @@
 const UModel = require('../models/userModel')
+const {body, validationResult} = require('express-validator')
 
 const getData = async(req,res)=>{
     try{
         const data = await UModel.find();
-        // console.log(data);
         res.status(200).send("Learning swagger");
     }
     catch(err){
@@ -13,11 +13,14 @@ const getData = async(req,res)=>{
 
 
 const postData = async(req,res)=>{
-    
-    const {name, company, price} = req.body;
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).json({errors : errors.array() })
+    }
+    // const {name, company, price} = req.body;
+    const data = req.body;
     try{
-        const result = await UModel.create({name, company, price});
-        // console.log(result);
+        const result = await UModel.create(data);
         res.status(200).send("Data Inserted Successfully");
     }
     catch(err){
